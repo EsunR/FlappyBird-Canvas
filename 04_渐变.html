@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="800px" height="500px">对不起您的浏览器不支持画布！</canvas>
+
+  <script>
+    // 得到画布
+    var myCanvas = document.querySelector("#myCanvas")
+    // 上下文，就相当于打开ps之后让你新建画布
+    var ctx = myCanvas.getContext('2d');
+    // 开始绘制路径
+    var lingrad = ctx.createLinearGradient(100, 100, 400, 400);
+    lingrad.addColorStop(0, 'red');
+    lingrad.addColorStop(1, 'blue');
+
+    ctx.fillStyle = lingrad;
+    ctx.fillRect(100, 100, 300, 300);
+
+  </script>
+</body>
+
+</html>

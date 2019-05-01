@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="800px" height="500px">对不起您的浏览器不支持画布！</canvas>
+
+  <script>
+    // 得到画布
+    var myCanvas = document.querySelector("#myCanvas")
+    // 上下文，就相当于打开ps之后让你新建画布
+    var ctx = myCanvas.getContext('2d');
+
+    // 接口
+    class Actor {
+      constructor() {
+        actorsArr.push(this);
+      }
+      render() {
+        throw new Error("所有演员必须重写render函数")
+      }
+      update() {
+        // 留空为非必须定义项
+      }
+    }
+
+    // 圆类
+    class Circle extends Actor {
+      constructor(x, y, r, color) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.color = color;
+      }
+      render() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+      update() {
+        this.x++;
+      }
+    }
+
+    // 所有演员的数组
+    var actorsArr = []
+
+    var yuan = new Circle(100, 100, 50, "red");
+    setInterval(() => {
+      ctx.clearRect(0, 0, 800, 600);
+      for (var i = 0; i < actorsArr.length; i++) {
+        actorsArr[i].update();
+        actorsArr[i].render();
+      }
+    }, 20);
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="800px" height="500px">对不起您的浏览器不支持画布！</canvas>
+
+  <script>
+    // 得到画布
+    var myCanvas = document.querySelector("#myCanvas")
+    // 上下文，就相当于打开ps之后让你新建画布
+    var ctx = myCanvas.getContext('2d');
+    // 今后的操作都是这个画布的事情，和myCanvas没有关系
+    ctx.fillStyle = "pink" // 填充颜色要写在绘制前
+    ctx.fillRect(100, 100, 300, 200)
+  </script>
+</body>
+
+</html>
