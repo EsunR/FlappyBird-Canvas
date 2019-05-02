@@ -1,4 +1,5 @@
 {
-  "bg_day": "img/bg_day.png",
-  "bird0_0": "img/bird0_0.png"
+  "bg_day": "bg_day.png",
+  "bg_night": "bg_night.png",
+  "land": "land.png"
 }
