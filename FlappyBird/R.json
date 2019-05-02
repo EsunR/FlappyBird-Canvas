@@ -1,5 +1,7 @@
 {
   "bg_day": "bg_day.png",
   "bg_night": "bg_night.png",
-  "land": "land.png"
+  "land": "land.png",
+  "pipe_up": "pipe_up.png",
+  "pipe_down": "pipe_down.png"
 }

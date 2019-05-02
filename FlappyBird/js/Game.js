@@ -69,7 +69,6 @@
       this.bg = new Background();
       this.land = new Land();
 
-
       // 游戏主循环
       this.timer = setInterval(() => {
         // 清屏
@@ -80,6 +79,10 @@
           actor.update();
           actor.render();
         })
+
+        if (this.f % 40 == 0) {
+          this.pipe = new Pipe();
+        }
 
         // 打印帧编号
         this.printFix();
