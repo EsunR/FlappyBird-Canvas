@@ -15,13 +15,13 @@
     // 主循环每帧调用render
     render() {
       // 渲染三张，目的是无缝滚动，当猫腻图的做边框达到0时，就拉回
-      game.ctx.drawImage(this.image, this.x, 0, 288, 520);
-      game.ctx.drawImage(this.image, this.x + 288, 0, 288, 520);
-      game.ctx.drawImage(this.image, this.x + 288 * 2, 0, 288, 520);
+      game.ctx.drawImage(this.image, this.x, 0, 288, game.canvas.height);
+      game.ctx.drawImage(this.image, this.x + 288, 0, 288, game.canvas.height);
+      game.ctx.drawImage(this.image, this.x + 288 * 2, 0, 288, game.canvas.height);
     }
     // 主循环每帧调用update  
     update() {
-      this.x -= 2;
+      this.x -= 1;
       if (this.x < -288) {
         this.x = 0;
       }

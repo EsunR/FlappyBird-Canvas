@@ -1,5 +1,5 @@
 (function(){
-  var Actor = window.Actor = class Actor{
+  window.Actor = class Actor{
     constructor(){
       // 将实例化的演员放到演员队列中
       game.actors.push(this);
