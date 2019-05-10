@@ -5,10 +5,10 @@
       super(Actor);
       this.image1 = game.R.pipe_down;
       this.image2 = game.R.pipe_up;
-      // 上管子的高度
-      this.height = _.random(20, 290);
       // 两个管子之间的开口
       this.kaikou = 100;
+      // 上管子的高度
+      this.height = _.random(40, game.canvas.height - game.LAND_HEIGHT - this.kaikou - 40);
       this.x = game.canvas.width; // 320是图片元素的高度
     }
     render() {
@@ -25,7 +25,7 @@
         this.x, this.height + this.kaikou, 52, game.canvas.height - game.LAND_HEIGHT - this.kaikou - this.height
       );
     }
-    主循环每帧调用update  
+    主循环每帧调用update
     update() {
       this.x -= game.SPEED;
       // 如果管子出屏幕就删除自己

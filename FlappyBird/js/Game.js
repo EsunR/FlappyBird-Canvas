@@ -16,7 +16,7 @@
         this.start();
       });
       // 游戏的速度（前景速度，非背景速度）
-      this.SPEED = 5;
+      this.SPEED = 2;
       // 地面的高度
       this.LAND_HEIGHT = this.canvas.height * 0.25;
     }
@@ -84,13 +84,13 @@
         })
 
         // 每40帧渲染一组管子
-        if (this.f % 40 == 0) {
+        if (this.f % 80 == 0) {
           this.pipe = new Pipe();
         }
 
         // 打印帧编号
         this.printFix();
-      }, 40)
+      }, 20)
     }
 
     /**

@@ -11,10 +11,12 @@
     render() {
       // 地面贴图宽度336，高度112
       game.ctx.drawImage(this.image, this.x, game.canvas.height - game.LAND_HEIGHT, game.canvas.width, game.LAND_HEIGHT);
-      game.ctx.drawImage(this.image, this.x + 336, game.canvas.height - game.LAND_HEIGHT, game.canvas.width, game.LAND_HEIGHT);
-      game.ctx.drawImage(this.image, this.x + 336 * 2, game.canvas.height - game.LAND_HEIGHT, game.canvas.width, game.LAND_HEIGHT);
+
+      game.ctx.drawImage(this.image, this.x + game.canvas.width, game.canvas.height - game.LAND_HEIGHT, game.canvas.width, game.LAND_HEIGHT);
+
+      game.ctx.drawImage(this.image, this.x + game.canvas.width * 2, game.canvas.height - game.LAND_HEIGHT, game.canvas.width, game.LAND_HEIGHT);
     }
-    主循环每帧调用update  
+    主循环每帧调用update
     update() {
       this.x -= game.SPEED;
       if (this.x < -336) {
