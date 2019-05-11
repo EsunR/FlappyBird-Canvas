@@ -25,7 +25,7 @@
         this.x, this.height + this.kaikou, 52, game.canvas.height - game.LAND_HEIGHT - this.kaikou - this.height
       );
     }
-    主循环每帧调用update
+    // 主循环每帧调用update
     update() {
       this.x -= game.SPEED;
       // 如果管子出屏幕就删除自己

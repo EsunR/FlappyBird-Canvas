@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="changeIsDropDown()">Change</button>
+  <canvas width="600" height="600"></canvas>
+  <script>
+    var canvas = document.getElementsByTagName("canvas")[0];
+    var ctx = canvas.getContext("2d");
+
+    var img = new Image();
+    img.src = './img/bird0_0.png'
+
+    var y = 100;
+    var dropf = 0; // 小帧号， 从第一帧开始技术
+    var f = 0; // 帧编号
+    var isDropDown = false;
+
+    function changeIsDropDown() {
+      isDropDown = !isDropDown;
+    }
+
+    img.onload = function () {
+      setInterval(function () {
+        ctx.clearRect(0, 0, 600, 600);
+        f++;
+        ctx.fillText(f, 20, 20);
+        ctx.fillText(`isDropDown: ${isDropDown}`, 20, 40);
+        if (isDropDown) {
+          dropf++
+          y += dropf * 1.4; // 每帧的变化是一个常数
+        }
+        ctx.drawImage(img, 200, y);
+      }, 20)
+    }
+  </script>
+</body>
+
+</html>
