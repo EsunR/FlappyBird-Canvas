@@ -170,12 +170,46 @@ FlappyBird中有三个场景：欢迎界面、游戏界面、Gameover界面。
 
 ![场景管理器](http://img.cdn.esunr.xyz/markdown/20190513194730.png)
 
+Game类说起，此时Game不要负责渲染背景、小鸟、大地、管子了。而是仅仅负责渲染、更新场景管理器。
 
+```diff
+// 游戏主循环
+  this.timmer = setInterval(() => {
+    // 清屏
+    this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
 
+-   // 渲染、更新所有的演员和渲染所有的演员
+-   _.each(this.actors, function (actor) {
+-     actor.update();
+-     actor.render();
+-   })
 
+-   // 每40帧渲染一组管子
+-   if (this.f % 100 == 0) {
+-     this.pipe = new Pipe();
+-   }
+-   
+-   // 打印分数
+-   var scoreLength = this.score.toString().length;
+-   for (var i = 0; i < scoreLength; i++) {
+-      this.ctx.drawImage(this.R['shuzi' + this.score.toString().charAt(i)], this.canvas.width / 2 + 32 * (i - scoreLength /-2), 100);
+-   }
 
++   // 场景管理器的渲染
++   this.sm.update();
++   this.sm.render();
 
+    // 打印帧编号
+    this.printFix();
 
+    
+  }, 20)
+}
+```
+
+场景管理器有三个方法 `enter()` 、 `update()` 、 `render()` 。其中定时器在每帧执行 `update()` 方法和 `render()` 方法。
+
+`enter()` 方法由业务来调动，比如用户点击了按钮，此时就进入场景2。鸟死了，进入场景3。
 
 
 

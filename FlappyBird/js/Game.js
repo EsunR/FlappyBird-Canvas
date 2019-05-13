@@ -17,7 +17,7 @@
       // 地面的高度
       this.LAND_HEIGHT = this.canvas.height * 0.25;
       // 玩家分数
-      this.score = 0   ;
+      this.score = 0;
 
       // 开始加载游戏资源
       this.loadResouces(() => {
@@ -25,6 +25,8 @@
         this.start();
         this.bindEvent();
       });
+
+
     }
 
     /**
@@ -73,38 +75,22 @@
      * 游戏开始
      */
     start() {
-      // 注册Actor
-      this.bg = new Background();
-      this.land = new Land();
-      this.bird = new Bird();
-
+      // 场景管理器
+      this.sm = new SceneManager();
+      
       // 游戏主循环
       this.timmer = setInterval(() => {
         // 清屏
         this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
 
-        // 渲染、更新所有的演员和渲染所有的演员
-        _.each(this.actors, function (actor) {
-          actor.update();
-          actor.render();
-        })
-
-        // 每40帧渲染一组管子
-        if (this.f % 100 == 0) {
-          this.pipe = new Pipe();
-        }
-        
-        // 打印分数
-        var scoreLength = this.score.toString().length;
-        for (var i = 0; i < scoreLength; i++) {
-          this.ctx.drawImage(this.R['shuzi' + this.score.toString().charAt(i)], this.canvas.width / 2 + 32 * (i - scoreLength / 2), 100);
-        }
-        
+        // 场景管理器的渲染
+        this.sm.update();
+        this.sm.render();
 
         // 打印帧编号
         this.printFix();
+        this.ctx.fillText(`场景号：${this.sm.sceneNumber}`, 10, 40)
 
-        
       }, 20)
     }
 
