@@ -12,13 +12,19 @@
       this.f = 0;
       // 演员清单
       this.actors = [];
-      this.loadResouces(() => {
-        this.start();
-      });
       // 游戏的速度（前景速度，非背景速度）
       this.SPEED = 2;
       // 地面的高度
       this.LAND_HEIGHT = this.canvas.height * 0.25;
+      // 玩家分数
+      this.score = 0   ;
+
+      // 开始加载游戏资源
+      this.loadResouces(() => {
+        // 游戏开始
+        this.start();
+        this.bindEvent();
+      });
     }
 
     /**
@@ -68,12 +74,12 @@
      */
     start() {
       // 注册Actor
-      // 背景
       this.bg = new Background();
       this.land = new Land();
+      this.bird = new Bird();
 
       // 游戏主循环
-      this.timer = setInterval(() => {
+      this.timmer = setInterval(() => {
         // 清屏
         this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
 
@@ -84,12 +90,21 @@
         })
 
         // 每40帧渲染一组管子
-        if (this.f % 80 == 0) {
+        if (this.f % 100 == 0) {
           this.pipe = new Pipe();
         }
+        
+        // 打印分数
+        var scoreLength = this.score.toString().length;
+        for (var i = 0; i < scoreLength; i++) {
+          this.ctx.drawImage(this.R['shuzi' + this.score.toString().charAt(i)], this.canvas.width / 2 + 32 * (i - scoreLength / 2), 100);
+        }
+        
 
         // 打印帧编号
         this.printFix();
+
+        
       }, 20)
     }
 
@@ -102,5 +117,12 @@
       this.ctx.textAlign = "left";
       this.ctx.fillText(this.f, 10, 20);
     }
+
+    bindEvent() {
+      this.canvas.onclick = () => {
+        this.bird.fly();
+      }
+    }
+
   }
 })()

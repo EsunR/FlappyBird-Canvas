@@ -88,3 +88,94 @@ canvas.addEventListener("click", function () {
   d = 0;
 })
 ```
+
+
+# 碰撞检测
+管子和小鸟的碰撞，会导致游戏结束，就要检测碰撞。
+类和类之间如何通信？
+
+- 类和类之间没有第三方，需要通过发布订阅模式（观察者模式）
+- 类和类之间有一个中介者，比如这个游戏，此时非常简单，直接通过中介者就能找到对方，比如：
+   ```js
+   game.bird.x;
+   game.bord.y
+   ```
+
+因为鸟只有一个，用管子去检查鸟非常方便，所有碰撞检测是管子的方法，管子每一帧都要检测自己是不是撞到鸟了。使用AABB盒来进行碰撞检测，就是一个矩形的包围盒。 
+
+> AABB盒： AABB盒，一个3D的AABB就是一个简单的六面体，每一边都平行于一个坐标平面，矩形边界框不一定都是立方体，它的长、宽、高可以彼此不同。坐标轴平行（Axially-aligned）不仅指盒体与世界坐标轴平行，同时也指盒体的每个面都和一条坐标轴垂直，这样一个基本信息就能减少转换盒体时操作的次数。AABB技术在当今的许多游戏中都得到了应用，开发者经常用它们作为模型的检测模型。但是，提高精度的同时也会降低速度。 
+
+对小鸟和管子进行碰撞检测，分表需要考虑到小鸟的三个边与管子的三个边之间的关系，分为以下两种情况：
+
+1. 小鸟与上管子碰撞时
+
+![20190513150421.png](http://img.cdn.esunr.xyz/markdown/20190513150421.png)
+
+1. 小鸟与下管子碰撞时
+
+![20190513150827.png](http://img.cdn.esunr.xyz/markdown/20190513150827.png)
+
+其中，将相同项合并之后，得出只要满足如下结果，就说名小鸟与管子发生碰撞：
+
+```
+鸟.R > 上管.L 且
+鸟.L < 上管.R 且
+鸟.T < 上管.B 或 鸟.B〉下管.T
+```
+
+再分析管子 LBRT 的各个值：对于管子来说，管子L就是 `this.x` ，管子R就是 `this.x + 52` ，上管子B就是 `this.height` ，下管子T就是`this.height + this.kaikou` 。
+
+![20190513152915.png](http://img.cdn.esunr.xyz/markdown/20190513152915.png)
+
+最终我们总结出如下规则：
+```javascript
+if (game.bird.R > this.x && game.bird.L < this.x + 52) {
+  if (game.bird.T < this.height || game.bird.B > this.height + this.kaikou) {
+    console.log("BOOM!");
+  }
+}
+```
+
+# 计数器处理
+
+对不同位数字要进行不同的处理，处理方式如下：
+
+![20190513171916.png](http://img.cdn.esunr.xyz/markdown/20190513171916.png)
+
+在 Game 类的主循环中添加：
+
+```js
+var scoreLength = this.score.toString().length;
+for (var i = 0; i < scoreLength; i++) {
+  this.ctx.drawImage(this.R['shuzi' + this.score.toString().charAt(i)], this.canvas.width / 2 + 32 * (i - scoreLength / 2), 100);
+}
+```
+
+当小鸟通过管子后，需要让 Game 类上挂载的 `score` +1 ，之后再利用函数节流的思想，在 Pipe 类上定义一个 `alreadPass` 用来判断是否让 `score` 进行增加操作，在 Pipe 类的 `update` 函数中加入如下代码：
+```js
+// 如果小鸟通过管子就加分
+if(game.bird.L > this.x + 52 && !this.alreadPass){
+  game.score ++ ;
+  this.alreadPass = true;
+}
+```
+
+# 场景管理器
+
+FlappyBird中有三个场景：欢迎界面、游戏界面、Gameover界面。
+
+三个场景的业务、逻辑、监听完全不一样。
+
+所以我们可以用场景管理器来负责管理自己当前场景的演员的更新和渲染。
+
+![场景管理器](http://img.cdn.esunr.xyz/markdown/20190513194730.png)
+
+
+
+
+
+
+
+
+
+

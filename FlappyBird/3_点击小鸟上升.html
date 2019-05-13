@@ -31,7 +31,7 @@
       dropf = 0;
       d = 0;
       x = 100;
-      y = 100;
+      y = 300;
       ctx.translate(x, y);
       ctx.rotate(0);
       ctx.drawImage(img, -24, -24);
@@ -46,17 +46,23 @@
         ctx.fillText(`帧编号: ${f}`, 0, 20);
         ctx.fillText(`小鸟帧编号: ${dropf}`, 0, 40);
         ctx.fillText(`能量状态: ${hasEnergy}`, 0, 60);
+        
+        // let preY = y;
+        // y -= (30 - dropf) * 0.5; // 每帧下落的距离
+
 
         // 鼠标点击屏幕，会给小鸟传递能量
         if (!hasEnergy) {
           // 如果没有能量，小鸟掉落并旋转
-          y += dropf * 0.35;
+          y += dropf * 0.5;
           d += 0.06;  // 每帧旋转的弧度
         } else {
           // 如果有能量，小鸟先想上飞，再掉落
-          y -= (20 - dropf) * 0.35; // 每帧下落的距离
+          y -= (30 - dropf) * 0.5; // 每帧上升的距离
+          console.log('dropf: ', dropf);          
+          console.log('下落距离: ', (30 - dropf) * 0.5);
           d -= 0.03;
-          if (dropf > 20) {
+          if (dropf == 30) {
             // 如果向上飞了20帧，就让小鸟失去能量重新开始下落
             hasEnergy = false;
             // 下落时小鸟帧设置为0,归为下落速度的初始值
