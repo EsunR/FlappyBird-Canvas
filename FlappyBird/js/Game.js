@@ -23,7 +23,7 @@
       this.loadResouces(() => {
         // 游戏开始
         this.start();
-        this.bindEvent();
+        // this.bindEvent();
       });
 
 
@@ -81,7 +81,7 @@
       // 游戏主循环
       this.timmer = setInterval(() => {
         // 清屏
-        this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // 场景管理器的渲染
         this.sm.update();
@@ -104,11 +104,6 @@
       this.ctx.fillText(this.f, 10, 20);
     }
 
-    bindEvent() {
-      this.canvas.onclick = () => {
-        this.bird.fly();
-      }
-    }
 
   }
 })()

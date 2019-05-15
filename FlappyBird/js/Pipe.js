@@ -32,16 +32,16 @@
       // 碰撞检测，检查自己有没有撞到小鸟
       if (game.bird.R > this.x && game.bird.L < this.x + 52) {
         if (game.bird.T < this.height || game.bird.B > this.height + this.kaikou) {
-          console.log("BOOM!");
-          clearInterval(game.timmer);
+          // 小鸟死亡进入场景4
+          game.sm.enter(4);
         }
       }
 
       this.x -= game.SPEED;
 
       // 如果小鸟通过管子就加分
-      if(game.bird.L > this.x + 52 && !this.alreadPass){
-        game.score ++ ;
+      if (game.bird.L > this.x + 52 && !this.alreadPass) {
+        game.score++;
         this.alreadPass = true;
       }
 

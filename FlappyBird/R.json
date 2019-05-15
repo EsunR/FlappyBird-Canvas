@@ -23,5 +23,8 @@
   "shuzi7": "font_055.png",
   "shuzi8": "font_056.png",  
   "shuzi9": "font_057.png",
-  "logo": "title.png"
+  "logo": "title.png",
+  "button_play": "button_play.png",
+  "tutorial": "tutorial.png",
+  "text_game_over": "text_game_over.png"
 }

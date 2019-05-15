@@ -34,10 +34,7 @@
       let hasEnergy = this.hasEnergy;
 
       // 翅膀状态
-      game.f % 8 === 0 && this.swingStep++;
-      if (this.swingStep > 2) {
-        this.swingStep = 0;
-      }
+      this.wing();
 
       this.dropf++
 
@@ -66,7 +63,8 @@
 
       // 验证小鸟自己是否落地
       if (this.B >= game.canvas.height - game.LAND_HEIGHT) {
-        clearInterval(game.timmer);
+        game.bird.dropf = 0;
+        game.sm.enter(4);
       }
       // 验证小鸟是否要飞出天空
       if (this.y <= 0) {
@@ -81,6 +79,13 @@
       // 下落前小鸟帧设置为0,归为上升速度的初始值
       this.dropf = 0;
       this.d = 0;
+    }
+
+    wing() {
+      game.f % 8 === 0 && this.swingStep++;
+      if (this.swingStep > 2) {
+        this.swingStep = 0;
+      }
     }
   }
 })()
