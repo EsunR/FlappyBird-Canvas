@@ -9,7 +9,7 @@
       this.kaikou = 120;
       // 上管子的高度
       this.height = _.random(40, game.canvas.height - game.LAND_HEIGHT - this.kaikou - 40);
-      this.x = game.canvas.width; // 320是图片元素的高度
+      this.x = game.canvas.width; // 500是图片元素的高度
       // 当前小鸟是否已经通过管子
       this.alreadPass = false;
     }
@@ -17,7 +17,7 @@
       game.ctx.drawImage(
         this.image1,
         // 切片坐标、切片宽高
-        0, 320 - this.height, 52, this.height,
+        0, 500 - this.height, 52, this.height,
         // 画布坐标，画布宽高
         this.x, 0, 52, this.height
       );

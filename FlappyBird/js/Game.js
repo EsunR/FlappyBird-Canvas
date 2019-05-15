@@ -3,6 +3,7 @@
     constructor(id) {
       // 获取画布
       this.canvas = document.getElementById(id);
+      this.init();
       // 设置上下文
       this.ctx = this.canvas.getContext("2d");
       this.RtextURL = "R.json";
@@ -77,7 +78,7 @@
     start() {
       // 场景管理器
       this.sm = new SceneManager();
-      
+
       // 游戏主循环
       this.timmer = setInterval(() => {
         // 清屏
@@ -86,6 +87,8 @@
         // 场景管理器的渲染
         this.sm.update();
         this.sm.render();
+        
+        this.f++;
 
         // 打印帧编号
         this.printFix();
@@ -98,10 +101,27 @@
      * 打印帧编号
      */
     printFix() {
-      this.f++;
       this.ctx.font = "14px 微软雅黑";
       this.ctx.textAlign = "left";
       this.ctx.fillText(this.f, 10, 20);
+    }
+
+
+    /**
+     * 初始化画布
+     */
+    init() {
+      var windowWidth = document.documentElement.clientWidth;
+      var windowHeight = document.documentElement.clientHeight;
+      if (windowWidth > 450) {
+        windowWidth = 450;
+      }
+      if (windowHeight > 1000) {
+        windowHeight = 1000;
+      }
+      console.log();
+      this.canvas.width = windowWidth;
+      this.canvas.height = windowHeight;
     }
 
 
