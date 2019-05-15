@@ -87,9 +87,12 @@
         this.sm.update();
         this.sm.render();
 
+        // 帧数++
+        this.f++;
+
         // 打印帧编号
-        this.printFix();
-        this.ctx.fillText(`场景号：${this.sm.sceneNumber}`, 10, 40)
+        // this.printFix();
+        // this.ctx.fillText(`场景号：${this.sm.sceneNumber}`, 10, 40)
 
       }, 20)
     }
@@ -98,7 +101,7 @@
      * 打印帧编号
      */
     printFix() {
-      this.f++;
+      
       this.ctx.font = "14px 微软雅黑";
       this.ctx.textAlign = "left";
       this.ctx.fillText(this.f, 10, 20);
