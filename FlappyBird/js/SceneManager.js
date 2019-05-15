@@ -153,6 +153,7 @@
           this.tutoerialOpacity = 1;
           break;
         case 3:
+          game.score = 0;
           game.pipeArr = new Array();
           break;
         case 4:
