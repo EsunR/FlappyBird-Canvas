@@ -1,5 +1,6 @@
 import SceneManager from './SceneManager';
 import resource from '../R.json';
+import FramesCounter from './FramesCounter';
 
 class Game {
   constructor(id) {
@@ -21,10 +22,13 @@ class Game {
     // 玩家分数
     this.score = 0;
 
+
+
     // 开始加载游戏资源
     this.loadResouces(() => {
+      let framesCounter = new FramesCounter(this);
       // 游戏开始
-      this.start();
+      framesCounter.start()
     });
 
 
@@ -65,28 +69,6 @@ class Game {
   }
 
   /**
-   * 游戏开始
-   */
-  start() {
-    // 场景管理器
-    this.sm = new SceneManager();
-
-    // 游戏主循环
-    this.timmer = setInterval(() => {
-      // 清屏
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      // 场景管理器的渲染
-      this.sm.update();
-      this.sm.render();
-
-      // 帧数++
-      this.f++;
-
-    }, 20)
-  }
-
-  /**
    * 打印帧编号
    */
   printFix() {
@@ -108,7 +90,6 @@ class Game {
     if (windowHeight > 1000) {
       windowHeight = 1000;
     }
-    console.log();
     this.canvas.width = windowWidth;
     this.canvas.height = windowHeight;
   }

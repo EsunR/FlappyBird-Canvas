@@ -1,4 +1,5 @@
 import Actor from './Actor'
+import Observe from './Obeserve'
 
 class Pipe extends Actor {
   constructor() {
@@ -13,6 +14,7 @@ class Pipe extends Actor {
     this.x = game.canvas.width; // 500是图片元素的高度
     // 当前小鸟是否已经通过管子
     this.alreadPass = false;
+    this.observe = new Observe(this);
   }
   render() {
     game.ctx.drawImage(
@@ -30,22 +32,14 @@ class Pipe extends Actor {
   }
   // 主循环每帧调用update
   update() {
-    // 碰撞检测，检查自己有没有撞到小鸟
-    if (game.bird.R > this.x && game.bird.L < this.x + 52) {
-      if (game.bird.T < this.height || game.bird.B > this.height + this.kaikou) {
-        // 小鸟死亡进入场景4
-        game.sm.enter(4);
-      }
-    }
-
+    // this.check();
+    this.observe.check();
     this.x -= game.SPEED;
-
     // 如果小鸟通过管子就加分
     if (game.bird.L > this.x + 52 && !this.alreadPass) {
       game.score++;
       this.alreadPass = true;
     }
-
     // 如果管子出屏幕就删除自己
     if (this.x < -52) {
       this.die();

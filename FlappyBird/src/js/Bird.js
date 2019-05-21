@@ -18,62 +18,61 @@ class Bird extends Actor {
     this.swingStep = 0;
   }
 
-  render() {
-    let ctx = game.ctx;
-    let img = this.birdImg[this.swingStep];
+render() {
+  let ctx = game.ctx;
+  let img = this.birdImg[this.swingStep];
 
-    ctx.save();
-    ctx.translate(this.x, this.y); // 将坐标系拉到要绘制小鸟的位置
-    ctx.rotate(this.d);  // 旋转坐标系
-    ctx.drawImage(img, -24, -24); // 绘制小鸟
-    ctx.restore();
-  }
+  ctx.save();
+  ctx.translate(this.x, this.y); // 将坐标系拉到要绘制小鸟的位置
+  ctx.rotate(this.d);  // 旋转坐标系
+  ctx.drawImage(img, -24, -24); // 绘制小鸟
+  ctx.restore();
+}
 
-  update() {
-    // TODO: 中介者模式
-    let dropf = this.dropf;
-    let hasEnergy = this.hasEnergy;
+update() {
+  let dropf = this.dropf;
+  let hasEnergy = this.hasEnergy;
 
-    // 翅膀状态
-    this.wing();
+  // 翅膀状态
+  this.wing();
 
-    this.dropf++
+  this.dropf++
 
-    // 鼠标点击屏幕，会给小鸟传递能量
-    if (!hasEnergy) {
-      // 如果没有能量，小鸟掉落并旋转
-      this.y += (dropf) * 0.5;
-      this.d += 0.05;  // 每帧旋转的弧度
-    } else {
-      // 如果有能量，小鸟先想上飞，再掉落
-      this.y -= (17 - dropf) * 0.48; // 每帧上升的距离
-      this.d -= 0.02;
-      if (dropf == 17) {
-        // 如果向上飞了20帧，就让小鸟失去能量重新开始下落
-        this.hasEnergy = false;
-        // 下落时小鸟帧设置为0,归为下落速度的初始值
-        this.dropf = 0;
-      }
-    }
-
-    // 计算自己的四个碰撞检测值
-    this.T = this.y - 12; // 13是图片上面的空隙
-    this.R = this.x + 17;
-    this.B = this.y + 12;
-    this.L = this.x - 17;
-
-    // 验证小鸟自己是否落地
-    if (this.B >= game.canvas.height - game.LAND_HEIGHT) {
-      game.bird.dropf = 0;
-      game.sm.enter(4);
-    }
-    // 验证小鸟是否要飞出天空
-    if (this.y <= 0) {
-      this.y = 0;
+  // 鼠标点击屏幕，会给小鸟传递能量
+  if (!hasEnergy) {
+    // 如果没有能量，小鸟掉落并旋转
+    this.y += (dropf) * 0.5;
+    this.d += 0.05;  // 每帧旋转的弧度
+  } else {
+    // 如果有能量，小鸟先想上飞，再掉落
+    this.y -= (17 - dropf) * 0.48; // 每帧上升的距离
+    this.d -= 0.02;
+    if (dropf == 17) {
+      // 如果向上飞了20帧，就让小鸟失去能量重新开始下落
       this.hasEnergy = false;
-      this.dropf = 1;
+      // 下落时小鸟帧设置为0,归为下落速度的初始值
+      this.dropf = 0;
     }
   }
+
+  // 计算自己的四个碰撞检测值
+  this.T = this.y - 12; // 13是图片上面的空隙
+  this.R = this.x + 17;
+  this.B = this.y + 12;
+  this.L = this.x - 17;
+
+  // 验证小鸟自己是否落地
+  if (this.B >= game.canvas.height - game.LAND_HEIGHT) {
+    game.bird.dropf = 0;
+    game.sm.enter(4);
+  }
+  // 验证小鸟是否要飞出天空
+  if (this.y <= 0) {
+    this.y = 0;
+    this.hasEnergy = false;
+    this.dropf = 1;
+  }
+}
 
   fly() {
     this.hasEnergy = true;
